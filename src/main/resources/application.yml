@@ -2,7 +2,7 @@
 server:
   port: 8887
 
-
+# 数据库连接
 spring:
   datasource:
     username: root
@@ -11,3 +11,8 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   thymeleaf:
     cache: false
+
+# 开启mybatis驼峰命名
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

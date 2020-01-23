@@ -2,6 +2,7 @@ package com.lh.community.service;
 
 import com.lh.community.dto.PaginationDTO;
 import com.lh.community.dto.QuestionDTO;
+import com.lh.community.model.Question;
 
 /**
  * @author lanhu
@@ -14,4 +15,6 @@ public interface QuestionService {
 
     //根据id查询问题
     QuestionDTO findById(String id);
+
+    void createOrUpdate(Question question);
 }

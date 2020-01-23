@@ -8,4 +8,6 @@ import com.lh.community.dto.PaginationDTO;
  */
 public interface QuestionService {
     PaginationDTO list(Integer page, Integer size);
+
+    PaginationDTO list(Integer userId,Integer page,Integer size);
 }

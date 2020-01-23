@@ -2,6 +2,9 @@ package com.lh.community.service.impl;
 
 import com.lh.community.dto.PaginationDTO;
 import com.lh.community.dto.QuestionDTO;
+import com.lh.community.exception.CustomizeErrorCode;
+import com.lh.community.exception.CustomizeErrorCodeImpl;
+import com.lh.community.exception.CustomizeException;
 import com.lh.community.mapper.QuestionMapper;
 import com.lh.community.mapper.UserMapper;
 import com.lh.community.model.Question;
@@ -98,6 +101,9 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public QuestionDTO findById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCodeImpl.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -121,7 +127,10 @@ public class QuestionServiceImpl implements QuestionService {
             record.setTag(question.getTag());
             QuestionExample example = new QuestionExample();
             example.createCriteria().andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(record, example);
+            int i = questionMapper.updateByExampleSelective(record, example);
+            if (i != 1) {
+                throw new CustomizeException(CustomizeErrorCodeImpl.QUESTION_NOT_FOUND);
+            }
         }
     }
 }

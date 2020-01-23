@@ -16,3 +16,6 @@
 解决办法二： 执行命令
 create user if not exists sa password '123';
 alter user sa admin true;
+
+```bash
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate

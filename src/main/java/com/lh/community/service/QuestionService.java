@@ -14,7 +14,7 @@ public interface QuestionService {
     PaginationDTO list(Integer userId,Integer page,Integer size);
 
     //根据id查询问题
-    QuestionDTO findById(String id);
+    QuestionDTO findById(Integer id);
 
     void createOrUpdate(Question question);
 }

@@ -6,4 +6,5 @@ package com.lh.community.exception;
  */
 public interface CustomizeErrorCode {
     String getMessage();
+    Integer getCode();
 }

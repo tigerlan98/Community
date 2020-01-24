@@ -20,8 +20,10 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/question/{id}")
-    public String showQuestion(@PathVariable Integer id, Model model){
+    public String showQuestion(@PathVariable Long id, Model model){
         QuestionDTO questionDTO = questionService.findById(id);
+        //累计阅读数
+        questionService.intView(id);
         model.addAttribute("question",questionDTO);
         return "question";
     }

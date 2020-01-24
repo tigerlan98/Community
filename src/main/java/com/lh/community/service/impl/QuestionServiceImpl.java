@@ -5,6 +5,7 @@ import com.lh.community.dto.QuestionDTO;
 import com.lh.community.exception.CustomizeErrorCode;
 import com.lh.community.exception.CustomizeErrorCodeImpl;
 import com.lh.community.exception.CustomizeException;
+import com.lh.community.mapper.QuestionExtMapper;
 import com.lh.community.mapper.QuestionMapper;
 import com.lh.community.mapper.UserMapper;
 import com.lh.community.model.Question;
@@ -31,6 +32,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Override
     public PaginationDTO list(Integer page, Integer size) {
@@ -62,7 +66,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public PaginationDTO list(Integer userId,Integer page,Integer size) {
+    public PaginationDTO list(Long userId,Integer page,Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         int totalPage;
         QuestionExample example = new QuestionExample();
@@ -99,7 +103,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public QuestionDTO findById(Integer id) {
+    public QuestionDTO findById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null){
             throw new CustomizeException(CustomizeErrorCodeImpl.QUESTION_NOT_FOUND);
@@ -117,6 +121,9 @@ public class QuestionServiceImpl implements QuestionService {
             //创建
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setLikeCount(0);
+            question.setCommentCount(0);
             questionMapper.insert(question);
         }else {
             //更新
@@ -132,5 +139,13 @@ public class QuestionServiceImpl implements QuestionService {
                 throw new CustomizeException(CustomizeErrorCodeImpl.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    @Override
+    public void intView(Long id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.intView(question);
     }
 }

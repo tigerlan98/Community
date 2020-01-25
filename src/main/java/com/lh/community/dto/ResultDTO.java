@@ -30,7 +30,7 @@ public class ResultDTO {
 
     public static ResultDTO success(){
         ResultDTO resultDTO = new ResultDTO();
-        resultDTO.setCode(100);
+        resultDTO.setCode(200);
         resultDTO.setMessage("请求成功");
         return resultDTO;
     }

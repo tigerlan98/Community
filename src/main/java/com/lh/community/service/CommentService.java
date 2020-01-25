@@ -1,6 +1,9 @@
 package com.lh.community.service;
 
+import com.lh.community.dto.CommentDTO;
 import com.lh.community.model.Comment;
+
+import java.util.List;
 
 /**
  * @author lanhu
@@ -9,4 +12,6 @@ import com.lh.community.model.Comment;
 public interface CommentService {
 
     void insert(Comment comment);
+
+    List<CommentDTO> listByQuestionId(Long id);
 }

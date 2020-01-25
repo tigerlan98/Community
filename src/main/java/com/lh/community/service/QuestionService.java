@@ -4,6 +4,8 @@ import com.lh.community.dto.PaginationDTO;
 import com.lh.community.dto.QuestionDTO;
 import com.lh.community.model.Question;
 
+import java.util.List;
+
 /**
  * @author lanhu
  * @create 2020-01-22 15:56
@@ -19,4 +21,6 @@ public interface QuestionService {
     void createOrUpdate(Question question);
 
     void intView(Long id);
+
+    List<QuestionDTO> selectRelated(QuestionDTO questionDTO);
 }

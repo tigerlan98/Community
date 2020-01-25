@@ -3,6 +3,7 @@ package com.lh.community.service;
 import com.lh.community.dto.CommentDTO;
 import com.lh.community.enums.CommentTypeEnum;
 import com.lh.community.model.Comment;
+import com.lh.community.model.User;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface CommentService {
 
-    void insert(Comment comment);
+    void insert(Comment comment, User user);
 
     List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type);
 }

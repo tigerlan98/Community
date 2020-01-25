@@ -125,3 +125,7 @@ body{
 .menu .icon:hover{
     color: #499ef3;
 }
+
+.badge-color {
+    background-color: #d9534f;
+}

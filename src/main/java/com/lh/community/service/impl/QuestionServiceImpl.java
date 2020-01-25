@@ -2,7 +2,6 @@ package com.lh.community.service.impl;
 
 import com.lh.community.dto.PaginationDTO;
 import com.lh.community.dto.QuestionDTO;
-import com.lh.community.exception.CustomizeErrorCode;
 import com.lh.community.exception.CustomizeErrorCodeImpl;
 import com.lh.community.exception.CustomizeException;
 import com.lh.community.mapper.QuestionExtMapper;
@@ -40,7 +39,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public PaginationDTO list(Integer page, Integer size) {
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO();
         int totalPage;
         Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
         totalPage = totalCount % size == 0 ? totalCount / size : totalCount / size + 1;
@@ -64,7 +63,7 @@ public class QuestionServiceImpl implements QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
 
         return paginationDTO;
     }
@@ -102,7 +101,7 @@ public class QuestionServiceImpl implements QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
 

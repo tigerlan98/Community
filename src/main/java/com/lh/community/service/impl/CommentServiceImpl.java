@@ -4,10 +4,7 @@ import com.lh.community.dto.CommentDTO;
 import com.lh.community.enums.CommentTypeEnum;
 import com.lh.community.exception.CustomizeErrorCodeImpl;
 import com.lh.community.exception.CustomizeException;
-import com.lh.community.mapper.CommentMapper;
-import com.lh.community.mapper.QuestionExtMapper;
-import com.lh.community.mapper.QuestionMapper;
-import com.lh.community.mapper.UserMapper;
+import com.lh.community.mapper.*;
 import com.lh.community.model.*;
 import com.lh.community.service.CommentService;
 import org.springframework.beans.BeanUtils;
@@ -39,6 +36,9 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private CommentExtMapper commentExtMapper;
+
     @Transactional
     @Override
     public void insert(Comment comment) {
@@ -57,6 +57,11 @@ public class CommentServiceImpl implements CommentService {
                 throw new CustomizeException(CustomizeErrorCodeImpl.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            //增加评论数
+            Comment parentComment = new Comment();
+            parentComment.setId(comment.getParentId());
+            parentComment.setCommentCount(1);
+            commentExtMapper.incCommentCount(parentComment);
         }else {
             //回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -70,9 +75,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDTO> listByQuestionId(Long id) {
+    public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {
         CommentExample example = new CommentExample();
-        example.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+        example.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(type.getType());
         example.setOrderByClause("gmt_create desc");
         List<Comment> comments = commentMapper.selectByExample(example);
 

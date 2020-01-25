@@ -1,8 +1,8 @@
 package com.lh.community.controller;
 
-import com.lh.community.dto.CommentCreateDTO;
 import com.lh.community.dto.CommentDTO;
 import com.lh.community.dto.QuestionDTO;
+import com.lh.community.enums.CommentTypeEnum;
 import com.lh.community.service.CommentService;
 import com.lh.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class QuestionController {
     @GetMapping("/question/{id}")
     public String showQuestion(@PathVariable Long id, Model model){
         QuestionDTO questionDTO = questionService.findById(id);
-        List<CommentDTO> comments =  commentService.listByQuestionId(id);
+        List<CommentDTO> comments =  commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         //累计阅读数
         questionService.intView(id);
         model.addAttribute("question",questionDTO);

@@ -20,6 +20,10 @@ body{
     padding-top: 10px;
 }
 
+.media-title{
+    margin-top: -5px;
+}
+
 .text-desc{
     font-size: 12px;
     font-weight: normal;
@@ -133,4 +137,16 @@ body{
 .footer{
     padding: 10px 25%;
     color: #666;
+}
+.text-shenglue{
+    display:block;
+    word-break:keep-all;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    -icab-text-overflow:ellipsis;
+    -khtml-text-overflow:ellipsis;
+    -moz-text-overflow: ellipsis;
+    -webkit-text-overflow:ellipsis;
 }

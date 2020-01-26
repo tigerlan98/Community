@@ -1,4 +1,4 @@
-## 走马社区
+## Bad Friends
 
 ## 资料
 [Spring 文档](https://spring.io/guides)
@@ -11,6 +11,6 @@
 
 ## BUG修改
 
-
+## shell脚本
 ```bash
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate

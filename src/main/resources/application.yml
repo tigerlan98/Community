@@ -18,3 +18,12 @@ mybatis:
     map-underscore-to-camel-case: true
   type-aliases-package: com.lh.community.model
   mapper-locations: classpath:mapper/*.xml
+
+# 日志配置
+logging:
+  file:
+    max-size: 100MB
+    max-history: 7
+    name: ./logs/community.log
+  level: info
+

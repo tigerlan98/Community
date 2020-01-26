@@ -81,6 +81,7 @@ public class CommentServiceImpl implements CommentService {
             if (question == null){
                 throw new CustomizeException(CustomizeErrorCodeImpl.QUESTION_NOT_FOUND);
             }
+            comment.setCommentCount(0);
             commentMapper.insert(comment);
             question.setCommentCount(1);
             questionExtMapper.incComment(question);
@@ -90,6 +91,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+        if (receiver.equals(comment.getCommentator())){
+            return;
+        }
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setType(notificationType.getType());

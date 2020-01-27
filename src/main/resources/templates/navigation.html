@@ -22,7 +22,7 @@
                             <li th:if="${session.user != null}">
                                 <a href="/publish">提问</a>
                             </li>
-                            <li><a href="/profile/replies">通知 <span class="badge badge-color" th:text="${session.unreadCount}">42</span></a></li>
+                            <li><a href="/profile/replies">通知 <span class="badge badge-color" th:text="${session.unreadCount}" th:if="${session.user != null}">42</span></a></li>
                             <li class="dropdown" th:if="${session.user != null}">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">
@@ -33,8 +33,10 @@
                                     <li><a href="/logout">退出登录</a></li>
                                 </ul>
                             </li>
-                            <li th:if="${session.user == null}"><a
-                                    href="https://github.com/login/oauth/authorize?client_id=5abccfd3ce255ff8a407&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>
+                            <li th:if="${session.user == null}">
+                                <a th:href="@{https://github.com/login/oauth/authorize(client_id='5abccfd3ce255ff8a407',redirect_url=${#httpServletRequest.getRequestURL()+'callback'},scope='user',state=1)}">
+                                    登录
+                                </a>
                             </li>
                         </ul>
                     </div>
